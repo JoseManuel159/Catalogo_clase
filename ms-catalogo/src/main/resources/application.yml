@@ -1,19 +1,8 @@
-# CONEXIÓN A BASE DE DATOS
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-  datasource:
-    url: jdbc:mysql://localhost:3306/ms-catalogo
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: ms-catalogo-service
+  profiles:
+    active: development
+  config:
+    import: optional:configserver:http://root:123456@localhost:7070
 
-# SWAGGER OPEN API
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    enabled: true
-    path: /doc/swagger-ui.html
