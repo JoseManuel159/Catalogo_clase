@@ -30,8 +30,8 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.actualizar(categoria));
     }
 
-    @GetMapping("/ver/{id}")
-    public ResponseEntity<Categoria> listById(@PathVariable(required = true) Integer id, @RequestBody Categoria categoria){
+    @GetMapping("/{id}")
+    public ResponseEntity<Categoria> listById(@PathVariable(required = true) Integer id){
         return ResponseEntity.ok().body(categoriaService.listarPorId(id).get());
     }
     @DeleteMapping("/{id}")

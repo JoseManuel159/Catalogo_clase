@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ms-catalogo-service
+    name: ms-registry-service
   profiles:
     active: development
   config:
