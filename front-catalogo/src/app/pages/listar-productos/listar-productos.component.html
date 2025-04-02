@@ -1,0 +1,65 @@
+<div class="search-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Buscar por código</mat-label>
+    <input matInput [(ngModel)]="searchCodigo" placeholder="Ingrese el código del producto">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="buscarProductoPorCodigo()">
+    Buscar
+  </button>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Buscar por nombre</mat-label>
+    <input matInput [(ngModel)]="searchNombre" placeholder="Ingrese el nombre del producto">
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="buscarProductoPorNombre()">
+    Buscar
+  </button>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Seleccionar Mes</mat-label>
+    <mat-select [(ngModel)]="mesSeleccionado">
+      <mat-option *ngFor="let mes of meses" [value]="mes.id">{{ mes.nombre }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Año</mat-label>
+    <input matInput type="number" [(ngModel)]="anioSeleccionado" min="2000" max="2099">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="buscarPorMes()">
+    Filtrar por Mes
+  </button>
+
+</div>
+
+<table mat-table [dataSource]="productos">
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let producto">{{ producto.nombre }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcion">
+    <th mat-header-cell *matHeaderCellDef> Descripción </th>
+    <td mat-cell *matCellDef="let producto">{{ producto.descripcion }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="precioVenta">
+    <th mat-header-cell *matHeaderCellDef> Precio Venta </th>
+    <td mat-cell *matCellDef="let producto">{{ producto.precioVenta | currency }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let producto">
+      <button mat-button (click)="openDialog(producto)">Editar</button>
+      <button mat-button color="warn" (click)="eliminarProducto(producto.id)">Eliminar</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!-- Botón para agregar un nuevo producto -->
+<button mat-raised-button color="primary" (click)="openDialog(null)">Agregar Producto</button>

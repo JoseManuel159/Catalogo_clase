@@ -1,6 +1,7 @@
 package com.example.mscatalogo.service.serviceImpl;
 
 import com.example.mscatalogo.entity.Categoria;
+import com.example.mscatalogo.exepciones.ResourceNotFoundException;
 import com.example.mscatalogo.repository.CategoriaRepository;
 import com.example.mscatalogo.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,14 @@ public class CategoriaServiceImpl implements CategoriaService{
 
     @Override
     public Categoria actualizar(Categoria categoria) {
-        return categoriaRepository.save(categoria);
+        Categoria categoriaExistente = categoriaRepository.findById(categoria.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria no encontrada"));
+        if (categoria.getNombre() != null) {
+            categoriaExistente.setNombre(categoria.getNombre());
+        }
+        return categoriaRepository.save(categoriaExistente);
     }
+
 
 
     @Override

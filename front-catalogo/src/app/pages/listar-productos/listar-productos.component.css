@@ -1,0 +1,16 @@
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+button {
+  margin-right: 10px;
+}
