@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 
@@ -12,7 +13,9 @@ import {MatTableModule} from "@angular/material/table";
     CommonModule,
     MatButtonModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,  // Añade esto
+
   ]
 })
 export class MaterialModule { }

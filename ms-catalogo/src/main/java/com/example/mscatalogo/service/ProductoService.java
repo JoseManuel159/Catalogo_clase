@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ProductoService {
-    Producto save(Producto producto);
+    Producto save(Producto producto, MultipartFile imagen);
     Producto update(Integer id, Producto producto);
     List<Producto> findAll();
     Producto findById(Integer id);

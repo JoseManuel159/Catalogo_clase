@@ -3,9 +3,11 @@ package com.example.mscatalogo.service.serviceImpl;
 import com.example.mscatalogo.entity.Producto;
 import com.example.mscatalogo.repository.ProductoRepository;
 import com.example.mscatalogo.service.ProductoService;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,12 +16,13 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoRepository productoRepository;
-    private final String uploadDir = "src/main/resources/static/imagenes/";
+    private final String UPLOAD_DIR = "C:/ciclo-5/Desarrollo de Aplicaciones/practicas de java/practicas/imagenes/";
 
 
     public ProductoServiceImpl(ProductoRepository productoRepository) {
@@ -27,7 +30,24 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Producto save(Producto producto) {
+    public Producto save(Producto producto, MultipartFile imagen) {
+        if (!imagen.isEmpty()) {
+            try {
+                // Redimensionar la imagen antes de guardarla
+                String originalFilename = imagen.getOriginalFilename();
+                String newFileName = UUID.randomUUID() + "_" + originalFilename;  // Nombre único para evitar colisiones
+                Path path = Paths.get(UPLOAD_DIR + newFileName);
+
+                // Redimensionar la imagen a un tamaño más pequeño (ajustar según tus necesidades)
+                Thumbnails.of(imagen.getInputStream())
+                        .size(500, 500)  // Ajusta el tamaño a 500x500 px (por ejemplo)
+                        .toFile(path.toFile());  // Guarda la imagen redimensionada
+
+                producto.setImagen(newFileName);  // Guardamos el nombre del archivo
+            } catch (IOException e) {
+                throw new RuntimeException("Error al guardar la imagen", e);
+            }
+        }
         return productoRepository.save(producto);
     }
 

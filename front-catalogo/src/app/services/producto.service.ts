@@ -25,8 +25,13 @@ export class ProductoService {
     return this.http.post<Producto>(this.apiUrl, producto);
   }
 
+  guardarConImagen(formData: FormData): Observable<Producto> {
+    return this.http.post<Producto>(this.apiUrl, formData);
+  }
+
+
   // Actualizar producto
-  actualizar(id: number, producto: Producto): Observable<Producto> {
+  editar(id: number, producto: Producto): Observable<Producto> {
     return this.http.put<Producto>(`${this.apiUrl}/${id}`, producto);
   }
 

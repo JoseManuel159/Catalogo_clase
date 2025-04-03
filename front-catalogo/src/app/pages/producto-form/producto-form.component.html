@@ -1,1 +1,56 @@
-<p>producto-form works!</p>
+<h2 mat-dialog-title class="dialog-title">Nuevo Producto</h2>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="productoForm" class="form-container">
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Código de Barras</mat-label>
+        <input matInput formControlName="codigo" placeholder="Código de barras" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName="descripcion" placeholder="Nombre del Producto" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Precio Compra</mat-label>
+        <input matInput type="number" formControlName="precioCompra" placeholder="Precio Compra" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Precio Venta</mat-label>
+        <input matInput type="number" formControlName="precioVenta" placeholder="Precio Venta" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Categorías</mat-label>
+        <mat-select formControlName="categoria">
+          <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Cuadro de imagen con vista previa -->
+    <div class="image-upload-container">
+      <label class="image-label">Foto</label>
+      <div class="image-box" (click)="triggerFileInput()">
+        <img *ngIf="imagenPreview" [src]="imagenPreview" alt="Vista previa" class="preview-image"/>
+        <label *ngIf="!imagenPreview" class="image-icon">📷</label>
+        <input type="file" id="file-upload" (change)="onFileSelected($event)" accept="image/*" class="hidden-file-input"/>
+      </div>
+    </div>
+
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="onSubmit()">Registrar</button>
+  <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+</mat-dialog-actions>

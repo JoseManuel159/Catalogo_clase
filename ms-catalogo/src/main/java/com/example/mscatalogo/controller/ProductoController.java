@@ -15,16 +15,13 @@ import java.util.List;
 @RequestMapping("/productos")
 public class ProductoController {
 
-    private ProductoService productoService;
+    private final ProductoService productoService;
 
     public ProductoController(ProductoService productoService) {
         this.productoService = productoService;
     }
 
-    @PostMapping
-    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
-        return ResponseEntity.ok(productoService.save(producto));
-    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable Integer id, @RequestBody Producto producto) {

@@ -1,42 +1,53 @@
 <div class="search-container">
-  <mat-form-field appearance="outline">
-    <mat-label>Buscar por código</mat-label>
-    <input matInput [(ngModel)]="searchCodigo" placeholder="Ingrese el código del producto">
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="buscarProductoPorCodigo()">
-    Buscar
-  </button>
+  <div class="search-fields">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar por código</mat-label>
+      <input matInput [(ngModel)]="searchCodigo" placeholder="Ingrese el código del producto">
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Buscar por nombre</mat-label>
-    <input matInput [(ngModel)]="searchNombre" placeholder="Ingrese el nombre del producto">
-  </mat-form-field>
-  <button mat-raised-button color="accent" (click)="buscarProductoPorNombre()">
-    Buscar
-  </button>
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar por nombre</mat-label>
+      <input matInput [(ngModel)]="searchNombre" placeholder="Ingrese el nombre del producto">
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Seleccionar Mes</mat-label>
-    <mat-select [(ngModel)]="mesSeleccionado">
-      <mat-option *ngFor="let mes of meses" [value]="mes.id">{{ mes.nombre }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Seleccionar Mes</mat-label>
+      <mat-select [(ngModel)]="mesSeleccionado">
+        <mat-option *ngFor="let mes of meses" [value]="mes.id">{{ mes.nombre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Año</mat-label>
-    <input matInput type="number" [(ngModel)]="anioSeleccionado" min="2000" max="2099">
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Año</mat-label>
+      <input matInput type="number" [(ngModel)]="anioSeleccionado" min="2000" max="2099">
+    </mat-form-field>
+  </div>
 
-  <button mat-raised-button color="primary" (click)="buscarPorMes()">
-    Filtrar por Mes
-  </button>
-
+  <div class="search-buttons">
+    <button mat-raised-button color="primary" (click)="buscarProductoPorCodigo()">Buscar Código</button>
+    <button mat-raised-button color="accent" (click)="buscarProductoPorNombre()">Buscar Nombre</button>
+    <button mat-raised-button color="primary" (click)="buscarPorMes()">Filtrar por Mes</button>
+  </div>
 </div>
 
-<table mat-table [dataSource]="productos">
+<table mat-table [dataSource]="productos" class="custom-table">
+  <ng-container matColumnDef="codigo">
+    <th mat-header-cell *matHeaderCellDef> Código </th>
+    <td mat-cell *matCellDef="let producto">{{ producto.codigo }}</td>
+  </ng-container>
+
   <ng-container matColumnDef="nombre">
     <th mat-header-cell *matHeaderCellDef> Nombre </th>
     <td mat-cell *matCellDef="let producto">{{ producto.nombre }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="imagen">
+    <th mat-header-cell *matHeaderCellDef> Imagen </th>
+    <td mat-cell *matCellDef="let producto">
+      <img *ngIf="producto.imagen" [src]="'http://localhost:8081/imagenes/' + producto.imagen + '?v=' + producto.id"
+           alt="Imagen del Producto" class="product-image"/>
+      <span *ngIf="!producto.imagen">Sin imagen</span>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="descripcion">
@@ -52,8 +63,12 @@
   <ng-container matColumnDef="acciones">
     <th mat-header-cell *matHeaderCellDef> Acciones </th>
     <td mat-cell *matCellDef="let producto">
-      <button mat-button (click)="openDialog(producto)">Editar</button>
-      <button mat-button color="warn" (click)="eliminarProducto(producto.id)">Eliminar</button>
+      <button mat-icon-button color="primary" (click)="openDialog(producto)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="eliminarProducto(producto.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </td>
   </ng-container>
 
@@ -62,4 +77,6 @@
 </table>
 
 <!-- Botón para agregar un nuevo producto -->
-<button mat-raised-button color="primary" (click)="openDialog(null)">Agregar Producto</button>
+<div class="add-button-container">
+  <button mat-raised-button color="primary" (click)="openDialog(null)">Agregar Producto</button>
+</div>

@@ -2,7 +2,7 @@ export interface Producto {
   id: number;
   codigo: string;
   nombre: string;
-  descripcion?: string;
+  descripcion: string;
   cantidad: number;
   precioCompra: number;
   precioVenta: number;
@@ -11,4 +11,5 @@ export interface Producto {
     id: number;
     nombre: string;
   };
+  imagen: string;
 }

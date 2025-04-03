@@ -34,11 +34,13 @@ public class Producto {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
+    private String imagen;
+
 
     public Producto() {
     }
 
-    public Producto(Integer id, String codigo, String nombre, String descripcion, Integer cantidad, Double precioCompra, Double precioVenta, LocalDate fechaCreacion, Categoria categoria) {
+    public Producto(Integer id, String codigo, String nombre, String descripcion, Integer cantidad, Double precioCompra, Double precioVenta, LocalDate fechaCreacion, Categoria categoria, String imagen) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -48,6 +50,7 @@ public class Producto {
         this.precioVenta = precioVenta;
         this.fechaCreacion = fechaCreacion;
         this.categoria = categoria;
+        this.imagen = imagen;
     }
 
     public Integer getId() {
@@ -122,6 +125,13 @@ public class Producto {
         this.categoria = categoria;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 
     @PrePersist
     public void prePersist() {
