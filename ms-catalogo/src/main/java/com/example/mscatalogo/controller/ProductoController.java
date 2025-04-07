@@ -2,6 +2,7 @@ package com.example.mscatalogo.controller;
 
 import com.example.mscatalogo.entity.Producto;
 import com.example.mscatalogo.service.ProductoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,14 @@ public class ProductoController {
     public ProductoController(ProductoService productoService) {
         this.productoService = productoService;
     }
+    @PostMapping
+    public ResponseEntity<Producto> guardarProducto(
+            @RequestPart("producto") Producto producto,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen) {
 
+        Producto productoGuardado = productoService.save(producto, imagen);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productoGuardado);
+    }
 
 
     @PutMapping("/{id}")

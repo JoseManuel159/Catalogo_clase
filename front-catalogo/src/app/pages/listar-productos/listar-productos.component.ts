@@ -88,7 +88,7 @@ export class ProductoComponent implements OnInit {
 
   openDialog(producto: Producto | null): void {
     const dialogRef = this.dialog.open(ProductoFormComponent, {
-      width: '1700px',
+      width: '400px',
       data: {
         producto: producto || { id: 0, codigo: '', nombre: '', descripcion: '', cantidad: 1, precioCompra: 0, precioVenta: 0, categoria: { id: null } }
       },
