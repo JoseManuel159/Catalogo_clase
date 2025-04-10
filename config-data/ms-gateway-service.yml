@@ -27,3 +27,8 @@ spring:
           uri: lb://ms-compra-service
           predicates:
             - Path=/compras/**
+
+        - id: ms-venta-service
+          uri: lb://ms-venta-service
+          predicates:
+            - Path=/ventas/**
